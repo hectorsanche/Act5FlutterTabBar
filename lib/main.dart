@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -29,40 +30,30 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Flutter UI Layouts Home Page'),
           bottom: TabBar(
-            tabs: <Widget>[
-              Tab(
-                icon: Icon(Icons.grid_on),
-              ),
-              Tab(
-                icon: Icon(Icons.list),
-              ),
+            indicator: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Color(0xff8456b7)), //Change background color from here
+
+            tabs: [
+              const Tab(icon: Icon(Icons.piano)),
+              const Tab(icon: Icon(Icons.local_pizza)),
+              const Tab(icon: Icon(Icons.coronavirus)),
+              const Tab(icon: Icon(Icons.account_box)),
             ],
           ),
+          title: const Text('Heineken'),
+          centerTitle: true,
         ),
-        body: TabBarView(
-          children: <Widget>[
-            // GridView tab content Widget
-            GridView.count(
-              // Items in row
-              crossAxisCount: 2,
-              // Vertical spacing between rows
-              mainAxisSpacing: 5.0,
-              // Horizontal spacing between columns
-              crossAxisSpacing: 5.0,
-              // Padding of GridView
-              padding: const EdgeInsets.all(5.0),
-              // The ratio between the width and height of items
-              childAspectRatio: 0.75,
-              // List of items widgets
-              children: items.map<Widget>((Item item) => _ItemGridCellWidget(item)).toList(),
-            ),
-            // ListView tab content Widget
-            ListView.builder(itemCount: items.length, itemBuilder: (BuildContext context, int position) => _ItemListCellWidget(items[position]))
+        body: const TabBarView(
+          children: [
+            Icon(Icons.piano, size: 350),
+            Icon(Icons.local_pizza, size: 350),
+            Icon(Icons.coronavirus, size: 350),
+            Icon(Icons.account_box, size: 350),
           ],
         ),
       ),
@@ -133,7 +124,7 @@ class _ItemListCellWidget extends StatelessWidget {
       subtitle: Text(
         _item.description,
         maxLines: 2,
-        style: TextStyle(),
+        style: const TextStyle(),
       ),
       leading: Hero(
         key: Key(_item.imageUrl),
